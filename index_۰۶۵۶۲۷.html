@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازار معاملاتی رویال شاپ | خرید و فروش اکانت بازی و خدمات روبیکا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FFD700;
+            --primary-dark: #D4AF37;
+            --black: #000000;
+            --dark: #0A0A0A;
+            --darker: #111111;
+            --light: #1A1A1A;
+            --text: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFEC8B 100%);
+            --gradient-dark: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+            --shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            --shadow-hover: 0 20px 50px rgba(255, 215, 0, 0.5);
+            --glow: 0 0 20px rgba(255, 215, 0, 0.6);
+            --glow-text: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--gradient-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-logo {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .header-scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2.2rem;
+            filter: var(--glow);
+            animation: logoGlow 3s infinite alternate;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow-text);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-gold);
+            color: var(--black);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+            animation: heroEntrance 1.2s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.8rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow-text);
+            display: block;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            animation: float 25s infinite linear;
+            opacity: 0.08;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: var(--glow-text);
+        }
+
+        .stat-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            backdrop-filter: blur(15px);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 3px solid var(--primary);
+            box-shadow: var(--shadow-hover);
+            max-width: 450px;
+            width: 90%;
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-shadow: var(--glow-text);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: var(--darker);
+            color: var(--text);
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+            text-shadow: var(--glow-text);
+        }
+
+        /* Features */
+        .features {
+            padding: 6rem 0;
+            background: var(--darker);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow-text);
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon i {
+            font-size: 2.5rem;
+            color: var(--black);
+        }
+
+        .feature-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 2;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Products */
+        .products {
+            padding: 6rem 0;
+            background: var(--black);
+            position: relative;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--light);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) rotate(2deg) scale(1.03);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .product-image {
+            height: 220px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image i {
+            font-size: 4.5rem;
+            color: var(--black);
+            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0,0,0,0.4));
+        }
+
+        .product-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .product-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-shadow: var(--glow-text);
+        }
+
+        /* Intermediaries */
+        .intermediaries {
+            padding: 6rem 0;
+            background: var(--darker);
+            position: relative;
+        }
+
+        .intermediaries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .intermediary-card {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .intermediary-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .intermediary-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intermediary-avatar i {
+            font-size: 2.5rem;
+            color: var(--black);
+            z-index: 2;
+        }
+
+        .intermediary-avatar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0,0,0,0.2));
+        }
+
+        .intermediary-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .intermediary-info p {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .verified {
+            color: var(--primary);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 5rem 0;
+            background: var(--black);
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2.5rem;
+            background: var(--light);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: var(--glow-text);
+        }
+
+        .stat-text {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 5rem 0 2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: var(--glow-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(10px);
+            text-shadow: var(--glow-text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--black);
+            transform: translateY(-5px) rotate(15deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 2.5rem;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            text-decoration: none;
+            box-shadow: var(--shadow-hover);
+            transition: all 0.4s ease;
+            animation: adminPulse 3s infinite;
+            font-size: 1.5rem;
+        }
+
+        .admin-btn:hover {
+            transform: scale(1.2) rotate(180deg);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 1.2rem 2rem;
+            background: var(--gradient-gold);
+            color: var(--black);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hover);
+            z-index: 3000;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            font-weight: 700;
+            font-size: 1.1rem;
+            max-width: 400px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes logoGlow {
+            from {
+                filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+            }
+            to {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-1200px) rotate(720deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes adminPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: var(--shadow-hover);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid,
+            .products-grid,
+            .intermediaries-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-stats {
+                gap: 2rem;
+                justify-content: center;
+            }
+
+            .admin-panel {
+                bottom: 1.5rem;
+                left: 1.5rem;
+            }
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-crown"></i>
+            </div>
+            <div class="loading-text">بارگذاری رویال شاپ...</div>
+        </div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo" onclick="scrollToTop()">
+                    <i class="fas fa-crown"></i>
+                    <div class="logo-text">بازار معاملاتی رویال شاپ</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">خانه</a></li>
+                        <li><a href="#features">خدمات</a></li>
+                        <li><a href="#products">محصولات</a></li>
+                        <li><a href="#intermediaries">واسطه‌ها</a></li>
+                        <li><a href="#stats">آمار</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" id="loginBtn">ورود</button>
+                    <button class="btn btn-secondary" id="registerBtn">ثبت نام</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>به <span>بازار معاملاتی رویال شاپ</span> خوش آمدید</h1>
+                <p>پلتفرم امن و مطمئن برای خرید و فروش اکانت‌های بازی، گیفت کارت و خدمات مرتبط با پیام‌رسان روبیکا. با واسطه‌های معتبر و تضمین 100% امنیت و کیفیت</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="joinRubika">پیوستن به روبیکا</button>
+                    <button class="btn btn-secondary">شروع معامله</button>
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">1500+</div>
+                        <div class="stat-text">معامله موفق</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-text">رضایت کاربران</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-text">محصول فعال</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>خدمات ویژه ما</h2>
+                <p>با اطمینان کامل و با بهترین کیفیت معامله کنید</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>خرید و فروش اکانت کالاف</h3>
+                    <p>خرید و فروش اکانت‌های کالاف دیوتی با سطوح مختلف و آیتم‌های متنوع با تضمین کامل امنیت و پشتیبانی 24 ساعته</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>خرید و فروش گپ و چنل روبیکا</h3>
+                    <p>معامله امن گپ‌ها و کانال‌های روبیکا با کاربران فعال و تضمین انتقال مالکیت و پشتیبانی دائمی</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>گیفت کارت و آیتم‌های بازی</h3>
+                    <p>خرید و فروش گیفت کارت‌های مختلف و آیتم‌های ارزشمند بازی‌های محبوب با بهترین قیمت بازار</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>محصولات پرفروش</h2>
+                <p>برترین محصولات با بهترین قیمت و کیفیت تضمین شده</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card scroll-animate">
+                    <div class="product-image">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>اکانت کالاف دیوتی لجندری</h3>
+                        <p>اکانت اورجینال کالاف دیوتی با آیتم‌های نایاب و اسلحه‌های افسانه‌ای سطح لجندری</p>
+                        <div class="product-price">1,500,000 تومان</div>
+                        <button class="btn btn-primary">خرید آنلاین</button>
+                    </div>
+                </div>
+                <div class="product-card scroll-animate">
+                    <div class="product-image">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>GM Free Fire 1000</h3>
+                        <p>گیفت کارت و آیتم‌های بازی فری فایر با تخفیف‌های ویژه و تحویل فوری</p>
+                        <div class="product-price">200,000 تومان</div>
+                        <button class="btn btn-primary">خرید آنلاین</button>
+                    </div>
+                </div>
+                <div class="product-card scroll-animate">
+                    <div class="product-image">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>UC Pubg 6000</h3>
+                        <p>خرید یونیورس کوین بازی پابجی با بهترین قیمت و تحویل فوری در کمتر از 5 دقیقه</p>
+                        <div class="product-price">450,000 تومان</div>
+                        <button class="btn btn-primary">خرید آنلاین</button>
+                    </div>
+                </div>
+                <div class="product-card scroll-animate">
+                    <div class="product-image">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>کانال روبیکا 10K</h3>
+                        <p>خرید و فروش کانال‌های روبیکا با 10,000 ممبر فعال و واقعی با تضمین کامل</p>
+                        <div class="product-price">2,500,000 تومان</div>
+                        <button class="btn btn-primary">خرید آنلاین</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intermediaries Section -->
+    <section class="intermediaries" id="intermediaries">
+        <div class="container">
+            <div class="section-title">
+                <h2>واسطه‌های معتبر</h2>
+                <p>با خیال راحت و با واسطه‌های تایید شده معامله کنید</p>
+            </div>
+            <div class="intermediaries-grid">
+                <div class="intermediary-card scroll-animate">
+                    <div class="intermediary-avatar">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="intermediary-info">
+                        <h3>Tavus</h3>
+                        <p>Community Owner</p>
+                        <div class="verified">
+                            <i class="fas fa-check-circle"></i>
+                            فول احراز هویت
+                        </div>
+                    </div>
+                </div>
+                <div class="intermediary-card scroll-animate">
+                    <div class="intermediary-avatar">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="intermediary-info">
+                        <h3>Winzer</h3>
+                        <p>Vasete Rubika</p>
+                        <div class="verified">
+                            <i class="fas fa-check-circle"></i>
+                            فول احراز هویت
+                        </div>
+                    </div>
+                </div>
+                <div class="intermediary-card scroll-animate">
+                    <div class="intermediary-avatar">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="intermediary-info">
+                        <h3>Salar</h3>
+                        <p>Vasete Call Of Duty</p>
+                        <div class="verified">
+                            <i class="fas fa-check-circle"></i>
+                            فول احراز هویت
+                        </div>
+                    </div>
+                </div>
+                <div class="intermediary-card scroll-animate">
+                    <div class="intermediary-avatar">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="intermediary-info">
+                        <h3>Caspian Aboli</h3>
+                        <p>Vasete Call Of Duty</p>
+                        <div class="verified">
+                            <i class="fas fa-check-circle"></i>
+                            فول احراز هویت
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="section-title">
+                <h2>آمار و ارقام</h2>
+                <p>گواهی بر کیفیت و اعتبار ما</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-count="1500">0</div>
+                    <div class="stat-text">معامله موفق</div>
+                </div>
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-text">رضایت کاربران</div>
+                </div>
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-text">محصول فعال</div>
+                </div>
+                <div class="stat-item scroll-animate">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-text">پشتیبانی</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>درباره ما</h3>
+                    <p>بازار معاملاتی رویال شاپ با سال‌ها تجربه در زمینه خرید و فروش اکانت‌های بازی و خدمات مرتبط، محیطی امن و مطمئن برای کاربران فراهم کرده است.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" id="rubikaSocial"><i class="fab fa-rubika"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>لینک‌های مفید</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-home"></i> خانه</a></li>
+                        <li><a href="#features"><i class="fas fa-cog"></i> خدمات</a></li>
+                        <li><a href="#products"><i class="fas fa-shopping-bag"></i> محصولات</a></li>
+                        <li><a href="#intermediaries"><i class="fas fa-users"></i> واسطه‌ها</a></li>
+                        <li><a href="#stats"><i class="fas fa-chart-bar"></i> آمار</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>تماس با ما</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-user"></i> @ID_TAVUS | اونر</a></li>
+                        <li><a href="#"><i class="fas fa-hashtag"></i> @BAZAR_ROYAL_SHOP | چنل</a></li>
+                        <li><a href="#" id="rubikaLink"><i class="fas fa-link"></i> گپ معاملات روبیکا</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> ۰۹۱۲۳۴۵۶۷۸۹</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@royalshop.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>کلیه حقوق این سایت متعلق به بازار معاملاتی رویال شاپ می‌باشد. © ۱۴۰۳</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <a href="#" class="admin-btn" id="adminToggle">
+            <i class="fas fa-cog"></i>
+        </a>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>ورود به حساب کاربری</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">نام کاربری یا ایمیل</label>
+                    <input type="text" id="loginUsername" class="form-control" placeholder="نام کاربری یا ایمیل خود را وارد کنید" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">رمز عبور</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="رمز عبور خود را وارد کنید" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">ورود به حساب</button>
+                <div class="form-footer">
+                    <a href="#" id="forgotPassword">رمز عبور خود را فراموش کرده‌اید؟</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>ثبت نام در رویال شاپ</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">نام کاربری</label>
+                    <input type="text" id="registerUsername" class="form-control" placeholder="نام کاربری خود را وارد کنید" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">ایمیل</label>
+                    <input type="email" id="registerEmail" class="form-control" placeholder="ایمیل خود را وارد کنید" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">رمز عبور</label>
+                    <input type="password" id="registerPassword" class="form-control" placeholder="رمز عبور خود را وارد کنید" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">تکرار رمز عبور</label>
+                    <input type="password" id="registerConfirmPassword" class="form-control" placeholder="رمز عبور خود را مجدداً وارد کنید" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">ایجاد حساب کاربری</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>ورود به پنل مدیریت</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="adminForm">
+                <div class="form-group">
+                    <label for="adminUsername">نام کاربری</label>
+                    <input type="text" id="adminUsername" class="form-control" placeholder="نام کاربری مدیریت" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">رمز عبور</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="رمز عبور مدیریت" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">ورود به پنل مدیریت</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Initialize particles
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 1000 } },
+                color: { value: "#FFD700" },
+                shape: { type: "circle" },
+                opacity: { value: 0.6, random: true },
+                size: { value: 4, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#FFD700",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 3,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // Create floating elements
+        const floatingContainer = document.getElementById('floatingElements');
+        for (let i = 0; i < 20; i++) {
+            const element = document.createElement('div');
+            element.classList.add('floating-element');
+            const size = Math.random() * 120 + 30;
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            element.style.left = `${Math.random() * 100}%`;
+            element.style.animationDuration = `${Math.random() * 40 + 20}s`;
+            element.style.animationDelay = `${Math.random() * 10}s`;
+            floatingContainer.appendChild(element);
+        }
+
+        // Modal functionality
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const adminToggle = document.getElementById('adminToggle');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const adminModal = document.getElementById('adminModal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+        const notification = document.getElementById('notification');
+
+        function showNotification(message, isSuccess = true) {
+            notification.textContent = message;
+            notification.style.background = isSuccess ? 'var(--gradient-gold)' : '#ff4444';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Ripple effect for buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add('ripple');
+
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'block';
+        });
+
+        registerBtn.addEventListener('click', () => {
+            registerModal.style.display = 'block';
+        });
+
+        adminToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            adminModal.style.display = 'block';
+        });
+
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+                adminModal.style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) loginModal.style.display = 'none';
+            if (e.target === registerModal) registerModal.style.display = 'none';
+            if (e.target === adminModal) adminModal.style.display = 'none';
+        });
+
+        // Form submissions
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('ورود موفقیت‌آمیز بود! به حساب کاربری خود خوش آمدید.');
+            loginModal.style.display = 'none';
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showNotification('رمز عبور و تکرار آن مطابقت ندارند!', false);
+                return;
+            }
+            
+            showNotification('ثبت نام موفقیت‌آمیز بود! لطفاً ایمیل خود را تأیید کنید.');
+            registerModal.style.display = 'none';
+        });
+
+        document.getElementById('adminForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            if (username === 'Tavus' && password === 'LKPGK00') {
+                showNotification('ورود موفقیت‌آمیز! به پنل مدیریت منتقل می‌شوید.');
+                adminModal.style.display = 'none';
+            } else {
+                showNotification('نام کاربری یا رمز عبور اشتباه است!', false);
+            }
+        });
+
+        // Rubika integration
+        document.getElementById('joinRubika').addEventListener('click', () => {
+            window.open('https://rubika.ir/joinc/DGBAFCEC0BMVJGSGGMNRLEYNDOTWQTTM', '_blank');
+            showNotification('در حال انتقال به گپ معاملات روبیکا...');
+        });
+
+        document.getElementById('rubikaLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://rubika.ir/joinc/DGBAFCEC0BMVJGSGGMNRLEYNDOTWQTTM', '_blank');
+            showNotification('در حال انتقال به گپ معاملات روبیکا...');
+        });
+
+        document.getElementById('rubikaSocial').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://rubika.ir/joinc/DGBAFCEC0BMVJGSGGMNRLEYNDOTWQTTM', '_blank');
+            showNotification('در حال انتقال به روبیکا...');
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Stats counter animation
+        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target;
+                    const target = parseInt(statNumber.getAttribute('data-count'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        statNumber.textContent = Math.floor(current);
+                    }, 16);
+                    
+                    statsObserver.unobserve(statNumber);
+                }
+            });
+        }, observerOptions);
+
+        statNumbers.forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // Forgot password
+        document.getElementById('forgotPassword').addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification('لینک بازیابی رمز عبور به ایمیل شما ارسال شد.');
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
